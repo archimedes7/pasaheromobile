@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "699535507493",
+    "project_id": "pasaherotestdrive",
+    "storage_bucket": "pasaherotestdrive.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:699535507493:android:fc98809051a7698a0bbfcc",
+        "android_client_info": {
+          "package_name": "com.pasaherotestdrive"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "699535507493-1g6b5j8giom7lu3r8sj8rnp5ats6plac.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pasaherotestdrive",
+            "certificate_hash": "d354862f0894c7bc91729fa87013497e21710bb6"
+          }
+        },
+        {
+          "client_id": "699535507493-ns5s2df0ktg8kfe2v5g093odhg700ejg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAyiKQZR_lkmSzLUJ6XrNtEXZjz8c53fwU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "699535507493-ns5s2df0ktg8kfe2v5g093odhg700ejg.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "699535507493-77kcp40r3rpv9h62hr5oade8i1uaurdp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.seven7trades.pasahero"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
