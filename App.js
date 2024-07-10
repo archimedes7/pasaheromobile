@@ -2,23 +2,23 @@ import React, { useState, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import { ThemeProvider } from "./styles/ThemeContext";
-import WelcomeScreen from "./screens/WelcomeScreen";
-import AuthScreen from "./screens/AuthScreen";
-import HomeScreen from "./screens/HomeScreen";
-import TempHomeScreen from "./screens/TempHomeScreen";
-import RegionSelectionScreen from "./screens/RegionSelectionScreen";
-import MapScreen from "./screens/MapScreen";
-import DriverFound from "./screens/DriverFound";
-import SignupScreen from "./screens/SignupScreen";
-import LookingForDriver from "./screens/LookingForDriver";
-import BookRide from "./screens/BookRide";
+import WelcomeScreen from "./src/screens/WelcomeScreen";
+import AuthScreen from "./src/screens/auth/AuthScreen";
+import HomeScreen from "./src/screens/HomeScreen";
+import TempHomeScreen from "./src/screens/TempHomeScreen";
+import RegionSelectionScreen from "./src/screens/map/RegionSelectionScreen";
+import MapScreen from "./src/screens/map/MapScreen";
+import DriverFound from "./src/screens/ride/DriverFound";
+import SignupScreen from "./src/screens/auth/SignupScreen";
+import LookingForDriver from "./src/screens/ride/LookingForDriver";
+import BookRide from "./src/screens/ride/BookRide";
 import {
   useFonts,
   Roboto_400Regular,
   Roboto_700Bold,
 } from "@expo-google-fonts/roboto";
 import * as SplashScreen from "expo-splash-screen";
-import { app, auth } from "./firebase";
+import { app, auth } from "./utils/firebaseConfig";
 import {
   onAuthStateChanged,
   createUserWithEmailAndPassword,

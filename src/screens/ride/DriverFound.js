@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import { useTheme } from "../styles/ThemeContext";
+import { useTheme } from "./../../../styles/ThemeContext";
 
 const DriverFound = ({ route }) => {
   const { theme, typography } = useTheme();

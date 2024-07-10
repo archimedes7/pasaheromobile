@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { View, Text, StyleSheet, ActivityIndicator } from "react-native";
-import { useTheme } from "../styles/ThemeContext";
+import { useTheme } from "./../../../styles/ThemeContext";
 
 const LookingForDriver = ({ navigation, route }) => {
   const { theme, typography } = useTheme();

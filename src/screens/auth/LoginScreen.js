@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
-import { useTheme } from "../styles/ThemeContext";
+import { useTheme } from "./../../../styles/ThemeContext";
 
 const LoginScreen = ({ navigation }) => {
   const { theme, typography } = useTheme();

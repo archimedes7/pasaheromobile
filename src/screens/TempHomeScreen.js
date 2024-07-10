@@ -7,7 +7,7 @@ import {
   StyleSheet,
   ScrollView,
 } from "react-native";
-import { useTheme } from "../styles/ThemeContext";
+import { useTheme } from "../../styles/ThemeContext";
 
 const navigationOptions = [
   { name: "Region Selection", screen: "SelectRegion" },

@@ -16,7 +16,7 @@ import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
 import axios from "axios";
 import * as Notifications from "expo-notifications";
-import { useTheme } from "../styles/ThemeContext";
+import { useTheme } from "../../../styles/ThemeContext";
 import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const generateHeatmapData = (locations) => {

@@ -8,7 +8,7 @@ import {
   StyleSheet,
   Image,
 } from "react-native";
-import { useTheme } from "../styles/ThemeContext";
+import { useTheme } from "./../../../styles/ThemeContext";
 import { Ionicons } from "@expo/vector-icons";
 
 const AuthScreen = ({ isLogin, onSubmit, onSwitchMode }) => {

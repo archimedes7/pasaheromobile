@@ -1,7 +1,7 @@
 // screens/WelcomeScreen.js
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
-import { useTheme } from "../styles/ThemeContext";
+import { useTheme } from "./../../styles/ThemeContext";
 
 const WelcomeScreen = ({ navigation }) => {
   const { theme, typography } = useTheme();
@@ -16,7 +16,7 @@ const WelcomeScreen = ({ navigation }) => {
       <View style={styles.contentContainer}>
         <View style={styles.imageContainer}>
           <Image
-            source={require("../assets/findheroes.png")} // Make sure this image exists in your assets folder
+            source={require("../../assets/findheroes.png")} // Make sure this image exists in your assets folder
             style={styles.image}
             resizeMode="cover"
           />

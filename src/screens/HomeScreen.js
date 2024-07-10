@@ -1,6 +1,6 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
-import LoginScreen from "./LoginScreen";
+import LoginScreen from "./auth/LoginScreen";
 
 function HomeScreen({ navigation }) {
   return (
@@ -10,7 +10,7 @@ function HomeScreen({ navigation }) {
         Discover affordable rides and connect with fellow heroes
       </Text>
       <Image
-        source={require("../assets/findheroes.png")}
+        source={require("../../assets/findheroes.png")}
         style={styles.image}
       />
       <TouchableOpacity

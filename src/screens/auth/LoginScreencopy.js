@@ -15,7 +15,7 @@ import {
   signInWithCredential,
   FacebookAuthProvider,
 } from "firebase/auth";
-import { auth } from "../firebase";
+import { auth } from "../firebaseConfig";
 
 const buttonOptions = [
   { name: "Email", icon: "envelope", color: "#007F8A", authMethod: "email" },
