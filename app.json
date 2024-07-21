@@ -53,6 +53,7 @@
       "eas": {
         "projectId": "3b08e8e5-563d-480d-8ae1-d5d798c9a7db"
       },
+      "prebuildCommand": "cd ios && pod install",
       "firebaseApiKey": "FIREBASE_API_KEY",
       "firebaseAuthDomain": "FIREBASE_AUTH_DOMAIN",
       "firebaseProjectId": "FIREBASE_PROJECT_ID",
@@ -74,6 +75,12 @@
     },
     "sdkVersion": "51.0.0",
     "plugins": [
+      [
+        "@react-native-firebase/app"
+      ],
+      [
+        "@react-native-firebase/auth"
+      ],
       [
         "@react-native-google-signin/google-signin"
       ],
