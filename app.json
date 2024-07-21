@@ -1,10 +1,10 @@
 {
   "expo": {
     "name": "testdrive",
-    "slug": "testdrive",
+    "slug": "com.seven7trades.pasahero",
     "version": "1.0.0",
     "orientation": "portrait",
-    "scheme": "pasaherotestdrive",
+    "scheme": "pasahero-testdrive",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
@@ -12,27 +12,39 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "facebookScheme": "fb424468263764363",
     "facebookAppId": "424468263764363",
-    "facebookDisplayName": "pasaherotestdrive",
+    "facebookDisplayName": "PasaheroTestDrive",
     "facebookAutoInitEnabled": true,
     "facebookAutoLogAppEventsEnabled": true,
     "facebookAdvertiserIDCollectionEnabled": false,
     "ios": {
+      "googleServicesFile": "./GoogleService-Info.plist",
       "supportsTablet": true,
       "bundleIdentifier": "com.seven7trades.pasahero",
       "infoPlist": {
+        "CFBundleURLSchemes": [
+          "fb424468263764363"
+        ],
         "NSLocationWhenInUseUsageDescription": "This app needs access to location when open.",
         "NSLocationAlwaysUsageDescription": "This app needs access to location when in the background."
       }
     },
     "android": {
+      "googleServicesFile": "./google-services.json",
       "package": "com.seven7trades.pasahero",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "permissions": ["ACCESS_COARSE_LOCATION", "ACCESS_FINE_LOCATION"]
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "INTERNET"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -40,7 +52,19 @@
     "extra": {
       "eas": {
         "projectId": "3b08e8e5-563d-480d-8ae1-d5d798c9a7db"
-      }
+      },
+      "firebaseApiKey": "FIREBASE_API_KEY",
+      "firebaseAuthDomain": "FIREBASE_AUTH_DOMAIN",
+      "firebaseProjectId": "FIREBASE_PROJECT_ID",
+      "firebaseStorageBucket": "FIREBASE_STORAGE_BUCKET",
+      "firebaseMessagingSenderId": "FIREBASE_MESSAGING_SENDER_ID",
+      "firebaseAppId": "FIREBASE_APP_ID",
+      "firebaseMeasurementId": "FIREBASE_MEASUREMENT_ID",
+      "googleExpoClientId": "GOOGLE_EXPO_CLIENT_ID",
+      "googleIosClientId": "GOOGLE_IOS_CLIENT_ID",
+      "googleAndroidClientId": "GOOGLE_ANDROID_CLIENT_ID",
+      "googleWebClientId": "GOOGLE_WEB_CLIENT_ID",
+      "facebookAppId": "FACEBOOK_APP_ID"
     },
     "runtimeVersion": {
       "policy": "appVersion"
@@ -50,7 +74,19 @@
     },
     "sdkVersion": "51.0.0",
     "plugins": [
+      [
+        "@react-native-google-signin/google-signin"
+      ],
+      [
+        "expo-apple-authentication"
+      ],
       "expo-font",
+      [
+        "expo-router",
+        {
+          "root": "app"
+        }
+      ],
       "expo-facebook",
       [
         "expo-location",

@@ -1,4 +1,3 @@
-// screens/RegionSelectionScreen.js
 import React from "react";
 import {
   View,
@@ -7,8 +6,10 @@ import {
   StyleSheet,
   FlatList,
 } from "react-native";
-import { useTheme } from "./../../../styles/ThemeContext";
+import { Colors } from "@/constants/Colors";
+import { useColorScheme } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { router } from "expo-router";
 
 const regions = [
   { id: "1", name: "Metro Manila" },
@@ -22,37 +23,32 @@ const regions = [
   // Add more regions as needed
 ];
 
-const RegionSelectionScreen = ({ navigation }) => {
-  const { theme, typography } = useTheme();
+const RegionSelectionScreen = () => {
+  const colorScheme = useColorScheme();
+  const colors = Colors[colorScheme];
 
   const renderRegionItem = ({ item }) => (
     <TouchableOpacity
-      style={[styles.regionItem, { borderColor: theme.colors.primary }]}
-      onPress={() => navigation.navigate("MapScreen", { region: item.name })}
+      style={[styles.regionItem, { borderColor: colors.primary }]}
+      onPress={() =>
+        router.push({
+          pathname: "/map",
+          params: { region: item.name },
+        })
+      }
     >
-      <Text
-        style={[typography.titleMedium, { color: theme.colors.primaryText }]}
-      >
+      <Text style={[styles.regionText, { color: colors.primaryText }]}>
         {item.name}
       </Text>
-      <Ionicons name="chevron-forward" size={24} color={theme.colors.primary} />
+      <Ionicons name="chevron-forward" size={24} color={colors.primary} />
     </TouchableOpacity>
   );
 
   return (
     <View
-      style={[
-        styles.container,
-        { backgroundColor: theme.colors.primaryBackground },
-      ]}
+      style={[styles.container, { backgroundColor: colors.primaryBackground }]}
     >
-      <Text
-        style={[
-          styles.title,
-          typography.headlineLarge,
-          { color: theme.colors.primaryText },
-        ]}
-      >
+      <Text style={[styles.title, { color: colors.primaryText }]}>
         Select Your Region
       </Text>
       <FlatList
@@ -73,6 +69,8 @@ const styles = StyleSheet.create({
   title: {
     textAlign: "center",
     marginBottom: 20,
+    fontSize: 28,
+    fontWeight: "bold",
   },
   listContainer: {
     flexGrow: 1,
@@ -86,6 +84,10 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     marginBottom: 10,
+  },
+  regionText: {
+    fontSize: 18,
+    fontWeight: "500",
   },
 });
 

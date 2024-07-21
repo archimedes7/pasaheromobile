@@ -9,24 +9,29 @@ import {
 } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import * as Location from "expo-location";
-import { useTheme } from "../styles/ThemeContext";
+import { Colors } from "@/constants/Colors";
+import { useColorScheme } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import { useRouter, useLocalSearchParams } from "expo-router";
 
 const regions = {
   // ... your regions object ...
 };
 
-const MapScreen = ({ route, navigation }) => {
+const MapScreen = () => {
   console.log("MapScreen rendered"); // Debug log
-  const { theme, typography } = useTheme();
+  const colorScheme = useColorScheme();
+  const colors = Colors[colorScheme];
   const [selectedRegion, setSelectedRegion] = useState(null);
   const [currentLocation, setCurrentLocation] = useState(null);
   const [fromLocation, setFromLocation] = useState("");
   const [toLocation, setToLocation] = useState("");
+  const router = useRouter();
+  const params = useLocalSearchParams();
 
   useEffect(() => {
-    console.log("Route params:", route.params); // Debug log
-    const region = route.params?.region;
+    console.log("Route params:", params); // Debug log
+    const region = params?.region;
     if (region && regions[region]) {
       console.log("Setting selected region:", regions[region]); // Debug log
       setSelectedRegion(regions[region]);
@@ -34,7 +39,7 @@ const MapScreen = ({ route, navigation }) => {
       console.log("Setting default region: Metro Manila"); // Debug log
       setSelectedRegion(regions["Metro Manila"]);
     }
-  }, [route.params]);
+  }, [params]);
 
   useEffect(() => {
     (async () => {
@@ -67,7 +72,7 @@ const MapScreen = ({ route, navigation }) => {
   const handleBookRide = () => {
     if (fromLocation && toLocation) {
       alert(`Ride booked from ${fromLocation} to ${toLocation}`);
-      navigation.navigate("TempHome");
+      router.push("/temp-home");
     } else {
       alert("Please enter both pickup and drop-off locations");
     }
@@ -75,19 +80,15 @@ const MapScreen = ({ route, navigation }) => {
 
   return (
     <View
-      style={[
-        styles.container,
-        { backgroundColor: theme.colors.primaryBackground },
-      ]}
+      style={[styles.container, { backgroundColor: colors.primaryBackground }]}
     >
       <Text
         style={[
           styles.title,
-          typography.headlineMedium,
-          { color: theme.colors.primaryText },
+          { color: colors.primaryText, fontSize: 24, fontWeight: "bold" },
         ]}
       >
-        {route.params?.region || "Default"} Map
+        {params?.region || "Default"} Map
       </Text>
       {selectedRegion && (
         <MapView
@@ -109,7 +110,7 @@ const MapScreen = ({ route, navigation }) => {
       <View style={styles.inputContainer}>
         <View style={styles.inputWrapper}>
           <TextInput
-            style={[styles.input, { borderColor: theme.colors.primary }]}
+            style={[styles.input, { borderColor: colors.primary }]}
             placeholder="Pickup Location"
             value={fromLocation}
             onChangeText={setFromLocation}
@@ -118,26 +119,20 @@ const MapScreen = ({ route, navigation }) => {
             onPress={handleUseCurrentLocation}
             style={styles.locationButton}
           >
-            <Ionicons name="location" size={24} color={theme.colors.primary} />
+            <Ionicons name="location" size={24} color={colors.primary} />
           </TouchableOpacity>
         </View>
         <TextInput
-          style={[styles.input, { borderColor: theme.colors.primary }]}
+          style={[styles.input, { borderColor: colors.primary }]}
           placeholder="Drop-off Location"
           value={toLocation}
           onChangeText={setToLocation}
         />
         <TouchableOpacity
           onPress={handleBookRide}
-          style={[styles.button, { backgroundColor: theme.colors.primary }]}
+          style={[styles.button, { backgroundColor: colors.primary }]}
         >
-          <Text
-            style={[
-              typography.labelLarge,
-              styles.buttonText,
-              { color: theme.colors.primaryBtnText },
-            ]}
-          >
+          <Text style={[styles.buttonText, { color: colors.primaryBtnText }]}>
             Book Ride
           </Text>
         </TouchableOpacity>
@@ -186,6 +181,8 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     textAlign: "center",
+    fontWeight: "bold",
+    fontSize: 16,
   },
 });
 

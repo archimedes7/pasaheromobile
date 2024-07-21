@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Dimensions } from "react-native";
 import MapView, { Marker, PROVIDER_GOOGLE } from "react-native-maps";
-import { useTheme } from "./../../../styles/ThemeContext";
+import { Colors } from "@/constants/Colors";
+import { useColorScheme } from "react-native";
+import { useLocalSearchParams } from "expo-router";
 
-const DriverFound = ({ route }) => {
-  const { theme, typography } = useTheme();
+const DriverFound = () => {
+  const colorScheme = useColorScheme();
+  const colors = Colors[colorScheme];
+  const params = useLocalSearchParams();
   const {
     driverName,
     estimatedArrival,
@@ -12,7 +16,7 @@ const DriverFound = ({ route }) => {
     toAddress,
     carType,
     estimatedPrice,
-  } = route.params;
+  } = params;
   const [driverLocation, setDriverLocation] = useState(null);
 
   useEffect(() => {
@@ -63,62 +67,26 @@ const DriverFound = ({ route }) => {
       <View
         style={[
           styles.infoContainer,
-          { backgroundColor: theme.colors.primaryBackground },
+          { backgroundColor: colors.primaryBackground },
         ]}
       >
-        <Text
-          style={[
-            styles.infoText,
-            { color: theme.colors.primaryText },
-            typography.bodyLarge,
-          ]}
-        >
+        <Text style={[styles.infoTextLarge, { color: colors.primaryText }]}>
           Driver: {driverName}
         </Text>
-        <Text
-          style={[
-            styles.infoText,
-            { color: theme.colors.primaryText },
-            typography.bodyMedium,
-          ]}
-        >
+        <Text style={[styles.infoText, { color: colors.primaryText }]}>
           Estimated Arrival: {estimatedArrival}
         </Text>
-        <Text
-          style={[
-            styles.infoText,
-            { color: theme.colors.primaryText },
-            typography.bodyMedium,
-          ]}
-        >
+        <Text style={[styles.infoText, { color: colors.primaryText }]}>
           From: {fromAddress}
         </Text>
-        <Text
-          style={[
-            styles.infoText,
-            { color: theme.colors.primaryText },
-            typography.bodyMedium,
-          ]}
-        >
+        <Text style={[styles.infoText, { color: colors.primaryText }]}>
           To: {toAddress}
         </Text>
-        <Text
-          style={[
-            styles.infoText,
-            { color: theme.colors.primaryText },
-            typography.bodyMedium,
-          ]}
-        >
+        <Text style={[styles.infoText, { color: colors.primaryText }]}>
           Car Type: {carType}
         </Text>
-        <Text
-          style={[
-            styles.infoText,
-            { color: theme.colors.primaryText },
-            typography.bodyLarge,
-          ]}
-        >
-          Estimated Price: ₱{estimatedPrice.toFixed(2)}
+        <Text style={[styles.infoTextLarge, { color: colors.primaryText }]}>
+          Estimated Price: ₱{parseFloat(estimatedPrice as string).toFixed(2)}
         </Text>
       </View>
     </View>
@@ -151,6 +119,12 @@ const styles = StyleSheet.create({
   },
   infoText: {
     marginBottom: 10,
+    fontSize: 16,
+  },
+  infoTextLarge: {
+    marginBottom: 10,
+    fontSize: 18,
+    fontWeight: "bold",
   },
 });
 

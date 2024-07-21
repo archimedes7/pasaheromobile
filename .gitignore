@@ -30,6 +30,13 @@ yarn-error.*
 
 # local env files
 .env*.local
+.env
 
 # typescript
 *.tsbuildinfo
+
+
+# prebuild
+node_modules/
+ios/
+android/
