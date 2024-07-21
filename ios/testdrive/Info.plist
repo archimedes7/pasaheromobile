@@ -4,6 +4,8 @@
   <dict>
     <key>CADisableMinimumFrameDurationOnPhone</key>
     <true/>
+    <key>CFBundleAllowMixedLocalizations</key>
+    <true/>
     <key>CFBundleDevelopmentRegion</key>
     <string>$(DEVELOPMENT_LANGUAGE)</string>
     <key>CFBundleDisplayName</key>
@@ -22,13 +24,23 @@
     <string>1.0.0</string>
     <key>CFBundleSignature</key>
     <string>????</string>
+    <key>CFBundleURLSchemes</key>
+    <array>
+      <string>fb424468263764363</string>
+    </array>
     <key>CFBundleURLTypes</key>
     <array>
       <dict>
         <key>CFBundleURLSchemes</key>
         <array>
-          <string>pasaherotestdrive</string>
+          <string>pasahero-testdrive</string>
           <string>com.seven7trades.pasahero</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>com.googleusercontent.apps.699535507493-77kcp40r3rpv9h62hr5oade8i1uaurdp</string>
         </array>
       </dict>
       <dict>
@@ -39,6 +51,12 @@
         <key>CFBundleURLSchemes</key>
         <array>
           <string>com.seven7trades.pasahero</string>
+        </array>
+      </dict>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb424468263764363</string>
         </array>
       </dict>
     </array>
@@ -53,7 +71,7 @@
     <key>FacebookAutoLogAppEventsEnabled</key>
     <true/>
     <key>FacebookDisplayName</key>
-    <string>pasaherotestdrive</string>
+    <string>PasaheroTestDrive</string>
     <key>LSApplicationQueriesSchemes</key>
     <array>
       <string>fbapi</string>
@@ -76,6 +94,10 @@
     <string>This app needs access to location when in the background.</string>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string>This app needs access to location when open.</string>
+    <key>NSUserActivityTypes</key>
+    <array>
+      <string>$(PRODUCT_BUNDLE_IDENTIFIER).expo.index_route</string>
+    </array>
     <key>NSUserTrackingUsageDescription</key>
     <string>This identifier will be used to deliver personalized ads to you.</string>
     <key>SKAdNetworkItems</key>
