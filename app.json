@@ -1,7 +1,8 @@
 {
   "expo": {
+    "owner": "seven7trades",
     "name": "testdrive",
-    "slug": "com.seven7trades.pasahero",
+    "slug": "testdrive",
     "version": "1.0.0",
     "orientation": "portrait",
     "scheme": "pasahero-testdrive",
@@ -53,7 +54,7 @@
       "eas": {
         "projectId": "3b08e8e5-563d-480d-8ae1-d5d798c9a7db"
       },
-      "prebuildCommand": "cd ios && pod install",
+      "prebuildCommand": "cd ios && pod install || (pod deintegrate && pod install)",
       "firebaseApiKey": "FIREBASE_API_KEY",
       "firebaseAuthDomain": "FIREBASE_AUTH_DOMAIN",
       "firebaseProjectId": "FIREBASE_PROJECT_ID",
@@ -75,6 +76,7 @@
     },
     "sdkVersion": "51.0.0",
     "plugins": [
+      "expo-build-properties",
       [
         "@react-native-firebase/app"
       ],

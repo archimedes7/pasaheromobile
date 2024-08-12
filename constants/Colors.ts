@@ -10,7 +10,7 @@ export const Colors = {
     tabIconSelected: tintColorLight,
     primary: "#007f8a",
     secondary: "#ffffff",
-    tertiary: "#ff7150",
+    tertiary: "#007f8a",
     alternate: "#0569a2",
     primaryText: "#007f8a",
     secondaryText: "#ff7f50",

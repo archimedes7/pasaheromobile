@@ -1,7 +1,7 @@
 // screens/BookRide.js
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Switch } from "react-native";
-import { useAuth } from "../../../contexts/AuthContext"; // Assume you have an auth context
+import { useAuth } from "@/contexts/AuthContext"; // Assume you have an auth context
 
 const BookRide = ({ navigation }) => {
   const [isPetRide, setIsPetRide] = useState(false);
@@ -21,7 +21,7 @@ const BookRide = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Book a Ride</Text>
+      <Text style={styles.title}>Find Heroes Nearby</Text>
 
       {user.userType === "petOwner" && (
         <View style={styles.switchContainer}>

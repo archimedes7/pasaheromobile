@@ -29,7 +29,7 @@ const WelcomeScreen = () => {
         </Text>
         <TouchableOpacity
           style={[styles.button, { backgroundColor: colors.primary }]}
-          onPress={() => router.push("test")}
+          onPress={() => router.push("(auth)")}
         >
           <Text style={[styles.buttonText, { color: colors.primaryBtnText }]}>
             Go to Test Screen

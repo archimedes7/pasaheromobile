@@ -1,51 +1,117 @@
 import React, { useState } from "react";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
-import { doc, setDoc } from "firebase/firestore";
-import { db, auth } from "../../utils/firebaseConfig";
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  Alert,
+  TextInput,
+} from "react-native";
+import { doc, setDoc, getDoc } from "firebase/firestore";
+import { db } from "../../utils/firebaseConfig";
 import { router } from "expo-router";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "react-native";
+import { useAuth } from "@/contexts/AuthContext";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as Crypto from "expo-crypto";
 
-/**
- * A screen where the user selects their user type.
- * @param {Object} props - The component props.
- * @param {boolean} props.disabled - Whether the button should be disabled.
- * @returns {JSX.Element} - The component.
- */
-const UserTypeSelectionScreen = ({
-  disabled = false,
-}: {
-  disabled?: boolean;
-}) => {
-  const [userType, setUserType] = useState<UserType | null>(null);
+async function verifyAdminCode(inputCode: string): Promise<boolean> {
+  try {
+    const adminSettingsRef = doc(db, "app_settings", "admin_settings");
+    const adminSettingsSnap = await getDoc(adminSettingsRef);
+
+    if (adminSettingsSnap.exists()) {
+      const storedHashedCode = adminSettingsSnap.data().hashedAdminCode;
+      const inputHashedCode = await Crypto.digestStringAsync(
+        Crypto.CryptoDigestAlgorithm.SHA256,
+        inputCode
+      );
+
+      return storedHashedCode === inputHashedCode;
+    }
+
+    return false;
+  } catch (error) {
+    console.error("Error verifying admin code:", error);
+    return false;
+  }
+}
+
+type UserType = "Passenger" | "Pet Owner" | "Driver" | "Admin";
+const UserTypeSelectionScreen: React.FC = () => {
+  const [adminCode, setAdminCode] = useState("");
+  const { user, userType: currentUserType, signOut } = useAuth();
+  const [selectedType, setSelectedType] = useState<UserType | null>(
+    currentUserType
+  );
   const colorScheme = useColorScheme();
-  const colors = Colors[colorScheme];
+  const colors = Colors[colorScheme ?? "light"];
+  const [showAdminInput, setShowAdminInput] = useState(false);
 
   const handleSelection = async (): Promise<void> => {
-    if (!userType) return;
+    if (!selectedType) return;
+    if (!user) {
+      Alert.alert("Error", "No user is currently signed in.");
+      return;
+    }
+
     try {
-      const user: Auth | null = auth.currentUser;
-      if (!user) return;
-      await setDoc(doc(db, "users", user.uid), {
-        email: user.email,
-        userType: userType,
-      });
-      // Navigate to home or onboarding screen
-      router.push("/temp-home");
+      if (selectedType === "Admin") {
+        const isAdmin = await verifyAdminCode(adminCode);
+        if (!isAdmin) {
+          Alert.alert("Error", "Invalid admin code.");
+          return;
+        }
+      }
+
+      await setDoc(
+        doc(db, "users", user.uid),
+        {
+          email: user.email,
+          userType: selectedType,
+        },
+        { merge: true }
+      );
+
+      // Update the userType in AsyncStorage
+      await AsyncStorage.setItem("userType", selectedType);
+
+      // If the user is changing their type, we might want to sign them out
+      if (currentUserType && currentUserType !== selectedType) {
+        await signOut();
+        router.replace("/welcome");
+      } else {
+        // Route to the appropriate profile screen
+        switch (selectedType) {
+          case "Passenger":
+            router.replace("/(main)/passenger-profile");
+            break;
+          case "Pet Owner":
+            router.replace("/(main)/pet-owner-profile");
+            break;
+          case "Driver":
+            router.replace("/(main)/driver-profile");
+            break;
+          case "Admin":
+            router.replace("/(admin)/dashboard");
+            break;
+        }
+      }
     } catch (error) {
       console.error("Error saving user type:", error);
-      // Handle error (show alert, etc.)
+      Alert.alert("Error", "Failed to save user type. Please try again.");
     }
   };
 
-  const userTypes: UserType[] = ["Passenger", "Pet Owner", "Driver"];
+  const userTypes: UserType[] = ["Passenger", "Pet Owner", "Driver", "Admin"];
 
   return (
     <View
       style={[styles.container, { backgroundColor: colors.primaryBackground }]}
     >
       <Text style={[styles.title, { color: colors.primaryText }]}>
-        I am a...
+        {currentUserType ? "Change user type" : "I am a..."}
       </Text>
       {userTypes.map((type) => (
         <TouchableOpacity
@@ -53,16 +119,18 @@ const UserTypeSelectionScreen = ({
           style={[
             styles.option,
             { borderColor: colors.primary },
-            userType === type && { backgroundColor: colors.primary },
+            selectedType === type && { backgroundColor: colors.primary },
           ]}
-          onPress={() => setUserType(type)}
+          onPress={() => setSelectedType(type)}
         >
           <Text
             style={[
               styles.optionText,
               {
                 color:
-                  userType === type ? colors.primaryBtnText : colors.primary,
+                  selectedType === type
+                    ? colors.primaryBtnText
+                    : colors.primary,
               },
             ]}
           >
@@ -70,17 +138,35 @@ const UserTypeSelectionScreen = ({
           </Text>
         </TouchableOpacity>
       ))}
+
+      <TouchableOpacity
+        style={styles.adminButton}
+        onPress={() => setShowAdminInput(!showAdminInput)}
+      >
+        <Text style={styles.adminButtonText}>Admin Access</Text>
+      </TouchableOpacity>
+
+      {showAdminInput && (
+        <TextInput
+          style={styles.adminInput}
+          placeholder="Enter admin code"
+          secureTextEntry
+          value={adminCode}
+          onChangeText={setAdminCode}
+        />
+      )}
+
       <TouchableOpacity
         style={[
           styles.button,
           { backgroundColor: colors.primary },
-          (disabled || !userType) && styles.disabledButton,
+          !selectedType && styles.disabledButton,
         ]}
         onPress={handleSelection}
-        disabled={disabled || !userType}
+        disabled={!selectedType}
       >
         <Text style={[styles.buttonText, { color: colors.primaryBtnText }]}>
-          Continue
+          {currentUserType ? "Change Type" : "Continue"}
         </Text>
       </TouchableOpacity>
     </View>
@@ -122,6 +208,23 @@ const styles = StyleSheet.create({
   buttonText: {
     fontWeight: "bold",
     fontSize: 16,
+  },
+  adminButton: {
+    marginTop: 10,
+    padding: 10,
+    backgroundColor: "#ddd",
+    borderRadius: 5,
+  },
+  adminButtonText: {
+    textAlign: "center",
+    color: "#333",
+  },
+  adminInput: {
+    marginTop: 10,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: "#ccc",
+    borderRadius: 5,
   },
 });
 

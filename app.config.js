@@ -3,6 +3,9 @@ import "dotenv/config";
 export default ({ config }) => ({
   ...config,
   extra: {
+    eas: {
+      projectId: "3b08e8e5-563d-480d-8ae1-d5d798c9a7db",
+    },
     firebaseApiKey: process.env.FIREBASE_API_KEY,
     firebaseAuthDomain: process.env.FIREBASE_AUTH_DOMAIN,
     firebaseProjectId: process.env.FIREBASE_PROJECT_ID,

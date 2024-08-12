@@ -15,7 +15,6 @@ import { Colors } from "@/constants/Colors";
 const EmailAuthScreen = () => {
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const colorScheme = useColorScheme();
   const colors = Colors[colorScheme];
   const router = useRouter();
@@ -24,10 +23,10 @@ const EmailAuthScreen = () => {
   const handleAuth = async () => {
     try {
       if (isLogin) {
-        await signInWithEmail(email, password);
+        await signInWithEmail(email);
         router.replace("/(app)/home");
       } else {
-        await signUpWithEmail(email, password);
+        await signUpWithEmail(email);
         router.push("/user-type");
       }
     } catch (error) {
@@ -72,7 +71,6 @@ const EmailAuthScreen = () => {
           </Text>
         </TouchableOpacity>
       </View>
-
       <TextInput
         style={[
           styles.input,
@@ -85,18 +83,6 @@ const EmailAuthScreen = () => {
         keyboardType="email-address"
         autoCapitalize="none"
       />
-      <TextInput
-        style={[
-          styles.input,
-          { borderColor: colors.lineColor, color: colors.primaryText },
-        ]}
-        placeholder="Password"
-        placeholderTextColor={colors.secondaryText}
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-
       <TouchableOpacity
         style={[styles.button, { backgroundColor: colors.primary }]}
         onPress={handleAuth}
@@ -127,7 +113,7 @@ const styles = StyleSheet.create({
     borderBottomColor: "transparent",
   },
   activeTab: {
-    borderBottomColor: "#FF7150",
+    borderBottomColor: "#007f8a",
   },
   tabText: {
     fontSize: 16,

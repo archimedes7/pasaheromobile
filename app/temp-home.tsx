@@ -16,13 +16,13 @@ type NavigationOption = {
 };
 
 const navigationOptions: NavigationOption[] = [
-  { name: "Region Selection", screen: "/(main)/region-selection" },
+  { name: "Region Selection", screen: "/(main)/booking/region-selection" },
   { name: "Home Screen", screen: "/" },
-  { name: "Book a Ride", screen: "/(main)/book" },
-  { name: "Map Screen", screen: "/(main)/map" },
+  { name: "Book a Ride", screen: "/(main)/booking/book" },
+  { name: "Map Screen", screen: "/(main)/booking/map" },
   { name: "User Type selection", screen: "/(auth)/user-type" },
-  { name: "Looking For Driver", screen: "/(main)/looking-for-driver" },
-  { name: "Driver Found", screen: "/(main)/driver-found" },
+  { name: "Looking For Driver", screen: "/(main)/booking/looking-for-driver" },
+  { name: "Driver Found", screen: "/(main)/booking/driver-found" },
 ];
 
 const TempHomeScreen = () => {

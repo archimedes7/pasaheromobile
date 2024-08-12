@@ -13,7 +13,7 @@ export default function Login() {
       style={[styles.container, { backgroundColor: colors.primaryBackground }]}
     >
       <Text style={[styles.title, { color: colors.primaryText }]}>Login</Text>
-      <Link href="/(app)/home" asChild>
+      <Link href="/temp-home" asChild>
         <TouchableOpacity style={styles.button}>
           <Text style={[styles.buttonText, { color: colors.primary }]}>
             Go to Home (simulating successful login)

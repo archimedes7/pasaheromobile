@@ -32,7 +32,7 @@ const RegionSelectionScreen = () => {
       style={[styles.regionItem, { borderColor: colors.primary }]}
       onPress={() =>
         router.push({
-          pathname: "/map",
+          pathname: "/(main)/booking/map",
           params: { region: item.name },
         })
       }

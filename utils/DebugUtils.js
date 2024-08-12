@@ -1,76 +1,58 @@
+import { initializeApp, getApps } from "firebase/app";
+import { getAuth } from "firebase/auth";
 import Constants from "expo-constants";
-import * as Facebook from "expo-facebook";
-import { getApps, initializeApp, getApp } from "firebase/app";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-
-const DEBUG = __DEV__;
-
-export const log = (message, ...args) => {
-  if (DEBUG) {
-    console.log(`[DEBUG] ${message}`, ...args);
-  }
-};
 
 export const checkEnvironment = () => {
-  const variables = Constants.expoConfig?.extra || {};
-  log("Environment Variables:", variables);
-
-  if (variables.firebaseConfig) {
-    log("Firebase API Key:", variables.firebaseConfig.apiKey);
-  } else {
-    log("Firebase config not found!");
-  }
-
-  log("Facebook App ID:", variables.facebookAppId || "Not set");
+  console.log("[DEBUG] Environment Variables:", Constants.expoConfig?.extra);
 };
 
 export const initFirebase = () => {
-  const firebaseConfig = Constants.expoConfig?.extra?.firebaseConfig;
-  log("Initializing Firebase with config:", firebaseConfig);
+  const firebaseConfig = {
+    apiKey: Constants.expoConfig?.extra?.firebaseApiKey,
+    authDomain: Constants.expoConfig?.extra?.firebaseAuthDomain,
+    projectId: Constants.expoConfig?.extra?.firebaseProjectId,
+    storageBucket: Constants.expoConfig?.extra?.firebaseStorageBucket,
+    messagingSenderId: Constants.expoConfig?.extra?.firebaseMessagingSenderId,
+    appId: Constants.expoConfig?.extra?.firebaseAppId,
+    measurementId: Constants.expoConfig?.extra?.firebaseMeasurementId,
+  };
 
-  if (getApps().length === 0) {
-    const app = initializeApp(firebaseConfig);
-    log("Firebase initialized:", app.name);
+  console.log("[DEBUG] Firebase config:", firebaseConfig);
+
+  if (!getApps().length) {
+    try {
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      console.log("[DEBUG] Firebase initialized successfully");
+      return { app, auth };
+    } catch (error) {
+      console.error("[DEBUG] Error initializing Firebase:", error);
+    }
   } else {
-    log("Firebase already initialized");
+    console.log("[DEBUG] Firebase already initialized");
+    return { app: getApps()[0], auth: getAuth() };
   }
-
-  const auth = getAuth();
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      log("User is signed in:", user.uid);
-    } else {
-      log("No user is signed in.");
-    }
-  });
 };
 
-export const checkFacebookSDK = async () => {
+export const checkFacebookSDK = () => {
   const facebookAppId = Constants.expoConfig?.extra?.facebookAppId;
-  log("Facebook App ID:", facebookAppId);
+  console.log("[DEBUG] Facebook App ID:", facebookAppId);
 
-  try {
-    await Facebook.initializeAsync({
-      appId: facebookAppId,
-    });
-    log("Facebook SDK initialized successfully");
-  } catch (error) {
-    log("Error initializing Facebook SDK:", error);
+  if (facebookAppId) {
+    console.log(
+      "[DEBUG] Facebook App ID found, but SDK initialization skipped"
+    );
+    // Facebook SDK initialization can be added here if needed in the future
+  } else {
+    console.log("[DEBUG] Facebook App ID not found");
   }
 };
 
-export const debugFacebookLogin = async () => {
+export const checkNetworkConnection = async () => {
   try {
-    const { type, token } = await Facebook.logInWithReadPermissionsAsync({
-      permissions: ["public_profile", "email"],
-    });
-
-    if (type === "success") {
-      log("Facebook Login Successful. Token:", token);
-    } else {
-      log("Facebook Login Cancelled or Failed");
-    }
+    const response = await fetch("https://www.google.com");
+    console.log("[DEBUG] Network connection:", response.ok ? "OK" : "Failed");
   } catch (error) {
-    log("Error in Facebook Login:", error);
+    console.error("[DEBUG] Network connection error:", error);
   }
 };
