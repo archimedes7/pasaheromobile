@@ -65,3 +65,4 @@ android/app/src/main/AndroidManifest.xml
 android/gradle.properties
 android/app/build.gradle
 android/app/src/main/AndroidManifest.xml
+scripts/setup-admin-code.js

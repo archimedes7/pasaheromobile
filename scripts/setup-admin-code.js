@@ -8,7 +8,7 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
-const adminCode = "pasaHEROBusiness7"; // Replace with your chosen admin code
+const adminCode = "pasaHEROBusiness7";
 
 function hashAdminCode(code) {
   return crypto.createHash("sha256").update(code).digest("hex");
