@@ -76,6 +76,7 @@
     },
     "sdkVersion": "51.0.0",
     "plugins": [
+      "./expo-plugins.ts",
       "expo-build-properties",
       [
         "@react-native-firebase/app"

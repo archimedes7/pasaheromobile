@@ -1,7 +1,7 @@
 const admin = require("firebase-admin");
 const crypto = require("crypto");
 
-const serviceAccount = require("../pasaherotestdrive-firebase-adminsdk-36p17-eaea1f7b08.json");
+const serviceAccount = require("../pasaherotestdrive-firebase-adminsdk-36p17-0fbd872d33.json");
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });

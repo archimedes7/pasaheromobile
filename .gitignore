@@ -1,12 +1,10 @@
-# Learn more https://docs.github.com/en/get-started/getting-started-with-git/ignoring-files
-
 # dependencies
-node_modules/
+/node_modules
 
 # Expo
-.expo/
-dist/
-web-build/
+/.expo
+/web-build
+/dist
 
 # Native
 *.orig.*
@@ -35,8 +33,35 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
+# Expo prebuild
+/ios
+/android
 
-# prebuild
-node_modules/
-ios/
-android/
+# IDE
+.idea
+.vscode
+
+# Temporary files
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+
+# Build
+/build
+
+# Test coverage
+/coverage
+ios/Podfile
+android/app/build.gradle
+pasaherotestdrive-firebase-adminsdk-36p17-0fbd872d33.json
+scripts/setup-admin-code.js
+
+android/gradle.properties
+android/app/build.gradle
+android/app/src/main/AndroidManifest.xml
+android/gradle.properties
+android/app/build.gradle
+android/app/src/main/AndroidManifest.xml
