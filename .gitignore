@@ -12,3 +12,11 @@ web-build/
 
 # macOS
 .DS_Store
+.env
+.env.testing
+.firebaserc
+firebase.json
+firestore.rules
+google-services.json
+GoogleService-Info.plist
+pasaherotestdrive-firebase-adminsdk-36p17-0fbd872d33.json

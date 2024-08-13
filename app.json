@@ -1,36 +1,115 @@
 {
   "expo": {
+    "owner": "seven7trades",
     "name": "pasahero-testdrive-v2",
     "slug": "pasahero-testdrive-v2",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
-    "userInterfaceStyle": "automatic",
+    "scheme": "pasahero-testdrive",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/images/splash.png",
+      "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "ios": {
-      "supportsTablet": true
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "facebook": {
+      "scheme": "fb424468263764363",
+      "appId": "424468263764363",
+      "displayName": "PasaheroTestDrive",
+      "autoInitEnabled": true,
+      "autoLogAppEventsEnabled": true,
+      "advertiserIDCollectionEnabled": false
     },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+    "ios": {
+      "googleServicesFile": "./GoogleService-Info.plist",
+      "supportsTablet": true,
+      "bundleIdentifier": "com.seven7trades.pasahero",
+      "infoPlist": {
+        "CFBundleURLSchemes": [
+          "fb424468263764363"
+        ],
+        "NSLocationWhenInUseUsageDescription": "This app needs access to location when open.",
+        "NSLocationAlwaysUsageDescription": "This app needs access to location when in the background."
       }
     },
-    "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./assets/images/favicon.png"
+    "android": {
+      "googleServicesFile": "./google-services.json",
+      "package": "com.seven7trades.pasahero",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "INTERNET"
+      ]
     },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "3b08e8e5-563d-480d-8ae1-d5d798c9a7db"
+      },
+      "prebuildCommand": "cd ios && pod install || (pod deintegrate && pod install)",
+      "firebaseApiKey": "FIREBASE_API_KEY",
+      "firebaseAuthDomain": "FIREBASE_AUTH_DOMAIN",
+      "firebaseProjectId": "FIREBASE_PROJECT_ID",
+      "firebaseStorageBucket": "FIREBASE_STORAGE_BUCKET",
+      "firebaseMessagingSenderId": "FIREBASE_MESSAGING_SENDER_ID",
+      "firebaseAppId": "FIREBASE_APP_ID",
+      "firebaseMeasurementId": "FIREBASE_MEASUREMENT_ID",
+      "googleExpoClientId": "GOOGLE_EXPO_CLIENT_ID",
+      "googleIosClientId": "GOOGLE_IOS_CLIENT_ID",
+      "googleAndroidClientId": "GOOGLE_ANDROID_CLIENT_ID",
+      "googleWebClientId": "GOOGLE_WEB_CLIENT_ID",
+      "facebookAppId": "424468263764363"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/3b08e8e5-563d-480d-8ae1-d5d798c9a7db"
+    },
+    "sdkVersion": "51.0.0",
     "plugins": [
-      "expo-router"
-    ],
-    "experiments": {
-      "typedRoutes": true
-    }
+      "expo-build-properties",
+      [
+        "@react-native-firebase/app"
+      ],
+      [
+        "@react-native-firebase/auth"
+      ],
+      [
+        "@react-native-google-signin/google-signin"
+      ],
+      [
+        "expo-apple-authentication"
+      ],
+      "expo-font",
+      [
+        "expo-router",
+        {
+          "root": "app"
+        }
+      ],
+      [
+        "expo-facebook",
+        {
+          "userTrackingPermission": false
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
+        }
+      ]
+    ]
   }
 }
