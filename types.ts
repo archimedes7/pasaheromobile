@@ -29,7 +29,7 @@ export interface CommonProfileFields {
   lastLoginDate?: Date;
 }
 
-export interface PassengerFields extends CommonProfileFields {
+export interface PassengerFields extends CommonProfileFields, WalletFields {
   homeAddress?: string;
   workAddress?: string;
   frequentDestinations?: string[];
@@ -49,7 +49,7 @@ export interface PassengerFields extends CommonProfileFields {
   };
 }
 
-export interface DriverFields extends CommonProfileFields {
+export interface DriverFields extends CommonProfileFields, WalletFields {
   driverLicenseNumber: string;
   driverLicenseExpiry: Date;
   vehicleInfo: {
@@ -93,7 +93,7 @@ export interface DriverFields extends CommonProfileFields {
   petRestrictions?: string;
 }
 
-export interface PetOwnerFields extends PassengerFields {
+export interface PetOwnerFields extends PassengerFields, WalletFields {
   pets: {
     name: string;
     type: "Dog" | "Cat" | "Bird" | "Other";
@@ -117,6 +117,86 @@ export interface PetOwnerFields extends PassengerFields {
     provider: string;
     policyNumber: string;
   };
+}
+
+//new when wallet was introduced
+
+// Basic user profile for initial sign-up
+export interface BasicUserProfile {
+  id: string;
+  fullName: string;
+  email: string;
+  phoneNumber: string;
+  profilePicture?: string;
+}
+
+// Wallet types
+export interface Card {
+  id: string;
+  name: string;
+  type: "credit" | "debit" | "loyalty" | "transport";
+  number: string;
+  expiryDate?: string;
+  balance?: number;
+  issuer?: string;
+  points?: number;
+  color?: string;
+  isDefault?: boolean;
+  cardProvider?: string; // e.g., Visa, Mastercard, etc.
+  cardHolderName?: string;
+  cvv?: string; // Note: Store this securely or consider not storing it at all
+  billingAddress?: string;
+  currency?: string;
+  isActive?: boolean;
+  lastUsed?: Date;
+}
+
+export interface Transaction {
+  id: string;
+  cardId: string;
+  amount: number;
+  type: "credit" | "debit";
+  description: string;
+  date: Date;
+  category?: string;
+  merchantName?: string;
+  status: "pending" | "completed" | "failed";
+}
+
+export interface WalletFields {
+  walletId: string;
+  cards: Card[];
+  preferredCard?: string; // ID of the preferred card
+  walletBalance: number;
+  walletCurrency: string;
+  lastTransaction?: Transaction;
+}
+
+export interface WalletSummaryProps {
+  totalBalance: number;
+  currency: string;
+  cardCount: number;
+}
+
+export interface WalletProfile {
+  userId: string;
+  walletId: string;
+  cards: Card[];
+  balance: number;
+  currency: string;
+  transactions: Transaction[];
+}
+
+export type RideHailingUserType =
+  | PassengerFields
+  | DriverFields
+  | PetOwnerFields;
+
+// Combined user profile
+export interface FullUserProfile {
+  basicProfile: BasicUserProfile;
+  walletProfile?: WalletProfile;
+  rideHailingProfile?: RideHailingUserType;
 }
 
 export type UserProfileTypes = PassengerFields | DriverFields | PetOwnerFields;

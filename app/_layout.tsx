@@ -17,6 +17,7 @@ import {
 import { useProtectedRoute } from "../hooks/useProtectedRoute";
 import { LoadingScreen } from "../components/LoadingScreen";
 import { useAuth, AuthProvider } from "../contexts/AuthContext";
+import { WalletProvider } from "@/contexts/WalletContext";
 
 LogBox.ignoreLogs(["You are initializing Firebase Auth"]);
 
@@ -78,7 +79,9 @@ export default function RootLayout() {
       }}
     >
       <AuthProvider>
-        <RootLayoutNav />
+        <WalletProvider>
+          <RootLayoutNav />
+        </WalletProvider>
       </AuthProvider>
     </ThemeProvider>
   );

@@ -13,9 +13,11 @@ import PassengerProfileView from "./passenger-profile";
 import PetOwnerProfileView from "./pet-owner-profile";
 import DriverProfileView from "./driver-profile";
 import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 
 export default function UserProfile() {
   const { userProfile, signOut } = useAuth();
+  const router = useRouter();
 
   if (!userProfile) {
     return <Text style={styles.loadingText}>Loading user profile...</Text>;
@@ -50,6 +52,8 @@ export default function UserProfile() {
     <ScrollView style={styles.container}>
       <CommonProfileView user={userProfile} />
       {renderProfileView()}
+      {/* Wallet Summary */}
+
       <View style={styles.actionsSection}>
         {actionButtons.map((action, index) => (
           <ActionButton
@@ -57,10 +61,17 @@ export default function UserProfile() {
             icon={action.icon}
             label={action.label}
             onPress={() => {
-              /* Handle navigation */
+              if (action.route) {
+                router.push(action.route);
+              }
             }}
           />
         ))}
+        <ActionButton
+          icon="wallet-outline"
+          label="Manage Wallet"
+          onPress={() => router.push("/wallet")}
+        />
       </View>
       <TouchableOpacity style={styles.logoutButton} onPress={signOut}>
         <Text style={styles.logoutText}>Log Out</Text>
@@ -68,7 +79,6 @@ export default function UserProfile() {
     </ScrollView>
   );
 }
-
 const ActionButton = ({ icon, label, onPress }) => (
   <TouchableOpacity style={styles.actionButton} onPress={onPress}>
     <Ionicons name={icon} size={24} color="#fff" />
