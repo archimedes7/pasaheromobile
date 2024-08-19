@@ -14,7 +14,7 @@ import { useAuth } from "@/contexts/AuthContext";
 
 export default function BookingIndex() {
   const colorScheme = useColorScheme();
-  const colors = Colors[colorScheme ?? "light"];
+  const colors = Colors[colorScheme ?? "dark"];
   const router = useRouter();
   const { userType } = useAuth();
   const [pickup, setPickup] = useState("");
@@ -39,6 +39,20 @@ export default function BookingIndex() {
       <Text style={[styles.title, { color: colors.primaryText }]}>
         Find 🔍 Heroes Nearby
       </Text>
+
+      <TouchableOpacity
+        style={[styles.button, { backgroundColor: colors.primary }]}
+        onPress={() => router.push("/booking/fare-info")}
+      >
+        <Ionicons
+          name="information-circle-outline"
+          size={24}
+          color={colors.primaryBtnText}
+        />
+        <Text style={[styles.buttonText, { color: colors.primaryBtnText }]}>
+          View Fare Information
+        </Text>
+      </TouchableOpacity>
 
       <View style={styles.inputContainer}>
         <Ionicons
@@ -105,6 +119,25 @@ export default function BookingIndex() {
           Open Map View
         </Text>
       </TouchableOpacity>
+
+      <TouchableOpacity
+        style={styles.mapButton}
+        onPress={() => router.push("/booking/map-heatmaps")}
+      >
+        <Ionicons name="flask-outline" size={24} color={colors.primary} />
+        <Text style={[styles.mapButtonText, { color: colors.primary }]}>
+          Try Demo Booking
+        </Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        style={styles.mapButton}
+        onPress={() => router.push("/booking/map-heatmaps-osm")}
+      >
+        <Ionicons name="flask-outline" size={24} color={colors.primary} />
+        <Text style={[styles.mapButtonText, { color: colors.primary }]}>
+          Try Demo Booking "(IOS/ANDROID)"
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -159,9 +192,31 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
+    marginTop: 20,
   },
   mapButtonText: {
     fontSize: 16,
     marginLeft: 10,
+  },
+  infoButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 10,
+    borderRadius: 8,
+    margin: 20,
+  },
+  infoButtonText: {
+    marginLeft: 10,
+    fontSize: 16,
+    fontWeight: "500",
+  },
+  demoButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 15,
+    borderRadius: 8,
+    marginTop: 20,
   },
 });

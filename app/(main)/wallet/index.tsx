@@ -29,7 +29,7 @@ export default function WalletScreen() {
   if (isLoading) {
     return (
       <View style={styles.centerContainer}>
-        <ActivityIndicator size="large" color="#007AFF" />
+        <ActivityIndicator size="large" color="#007f8a" />
       </View>
     );
   }

@@ -29,12 +29,12 @@ export type Theme = {
 
 export const lightTheme: Theme = {
   colors: {
-    primary: "#007f8a",
+    primary: "#007f8A",
     secondary: "#ffffff",
-    tertiary: "#007f8a",
+    tertiary: "#007f8A",
     alternate: "#0569a2",
-    primaryText: "#007f8a",
-    secondaryText: "#007f8a",
+    primaryText: "#007f8A",
+    secondaryText: "#007f8A",
     primaryBackground: "#f1f4f8",
     secondaryBackground: "#ffffff",
     accent1: "#4c4b39ef",

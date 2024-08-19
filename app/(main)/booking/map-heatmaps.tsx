@@ -379,7 +379,7 @@ const MapScreenHeatmaps: React.FC = () => {
         setIsLookingForDriver(false);
         console.log("Navigating to driver-found screen");
         router.push({
-          pathname: "/driver-found",
+          pathname: "booking/driver-found",
           params: {
             driverName: "John Doe",
             estimatedArrival: "5 minutes",

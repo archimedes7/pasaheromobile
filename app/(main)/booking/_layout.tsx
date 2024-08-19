@@ -30,6 +30,10 @@ export default function BookingLayout() {
       />
       <Stack.Screen name="map-heatmaps" options={{ title: "Map Heatmaps" }} />
       <Stack.Screen
+        name="map-heatmaps-osm"
+        options={{ title: "Map Heatmaps native" }}
+      />
+      <Stack.Screen
         name="region-selection"
         options={{ title: "Select Region" }}
       />
@@ -39,6 +43,13 @@ export default function BookingLayout() {
         options={{
           title: "Finding Driver",
           headerShown: false, // Hide header for this screen
+        }}
+      />
+      <Stack.Screen
+        name="fare-info"
+        options={{
+          title: "Fare Information",
+          presentation: "modal",
         }}
       />
     </Stack>

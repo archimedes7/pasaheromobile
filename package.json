@@ -59,6 +59,7 @@
     "react-native-screens": "3.31.1",
     "react-native-vision-camera": "^4.5.1",
     "react-native-web": "~0.19.10",
+    "react-native-webview": "^13.10.5",
     "tesseract.js": "^5.1.0"
   },
   "devDependencies": {

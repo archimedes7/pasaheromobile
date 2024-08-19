@@ -3,19 +3,17 @@ import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
 import { useAuth } from "../../contexts/AuthContext";
 import { useProtectedRoute } from "@/hooks/useProtectedRoute";
-
 export default function MainLayout() {
   const { userType } = useAuth();
   useProtectedRoute();
-
   return (
     <Tabs>
       <Tabs.Screen
-        name="wallet"
+        name="profile"
         options={{
-          title: "Digital Wallet",
+          title: "Profile",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="wallet" size={size} color={color} />
+            <Ionicons name="person" size={size} color={color} />
           ),
         }}
       />
@@ -29,14 +27,76 @@ export default function MainLayout() {
         }}
       />
       <Tabs.Screen
-        name="profile"
+        name="wallet"
         options={{
-          title: "Profile",
+          title: "Digital Wallet",
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="person" size={size} color={color} />
+            <Ionicons name="wallet" size={size} color={color} />
           ),
         }}
       />
+      <Tabs.Screen
+        name="local-eats"
+        options={{
+          title: "WDLE!",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="restaurant" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="more"
+        options={{
+          title: "More",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="menu" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="safety/index"
+        options={{
+          href: null,
+          title: "Safety",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="shield-checkmark" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="support/complaints"
+        options={{
+          href: null,
+          title: "Support",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="help-buoy" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="insurance/index"
+        options={{
+          href: null,
+          title: "Insurance",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="umbrella" size={size} color={color} />
+          ),
+        }}
+      />
+      {userType === "Driver" && (
+        <>
+          <Tabs.Screen
+            name="driver-application/index"
+            options={{
+              href: null,
+              title: "Apply",
+              tabBarIcon: ({ color, size }) => (
+                <Ionicons name="document-text" size={size} color={color} />
+              ),
+            }}
+          />
+        </>
+      )}
     </Tabs>
   );
 }

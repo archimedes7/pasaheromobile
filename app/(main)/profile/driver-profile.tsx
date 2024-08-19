@@ -52,7 +52,7 @@ const DriverProfileView = ({ user }) => (
           icon="cash"
           label="Earnings"
           value={
-            user.totalEarnings ? `$${user.totalEarnings.toFixed(2)}` : "$0.00"
+            user.totalEarnings ? `₱${user.totalEarnings.toFixed(2)}` : "$0.00"
           }
         />
       </View>

@@ -666,7 +666,7 @@ const styles = StyleSheet.create({
   },
   selectedCarOption: {
     backgroundColor: "rgba(0, 0, 0, 0.05)",
-    borderColor: "#007AFF",
+    borderColor: "#007f8A",
   },
   carOptionName: {
     fontSize: 16,

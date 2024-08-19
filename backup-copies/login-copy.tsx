@@ -18,7 +18,7 @@ import {
 import { auth } from "../firebaseConfig";
 
 const buttonOptions = [
-  { name: "Email", icon: "envelope", color: "#007F8A", authMethod: "email" },
+  { name: "Email", icon: "envelope", color: "##007f8A", authMethod: "email" },
   { name: "Google", icon: "google", color: "#fa8c1a", authMethod: "google" },
   {
     name: "Facebook",
