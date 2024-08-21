@@ -18,32 +18,54 @@ export default function BookingLayout() {
         name="index"
         options={{
           title: "Booking",
-          headerShown: false, // Hide header for the main booking screen
+          headerShown: false,
         }}
       />
       <Stack.Screen
-        name="map"
+        name="immediate-ride/book"
+        options={{ title: "Book a Ride" }}
+      />
+      <Stack.Screen
+        name="immediate-ride/map"
         options={{
           title: "Map",
-          presentation: "modal", // Present as a modal for a smoother transition
+          presentation: "modal",
         }}
       />
-      <Stack.Screen name="map-heatmaps" options={{ title: "Map Heatmaps" }} />
       <Stack.Screen
-        name="map-heatmaps-osm"
-        options={{ title: "Map Heatmaps native" }}
+        name="immediate-ride/map-heatmaps"
+        options={{ title: "Map Heatmaps" }}
       />
       <Stack.Screen
-        name="region-selection"
+        name="immediate-ride/map-heatmaps-osm"
+        options={{ title: "Map Heatmaps native", headerShown: false }}
+      />
+      <Stack.Screen
+        name="immediate-ride/region-selection"
         options={{ title: "Select Region" }}
       />
-      <Stack.Screen name="driver-found" options={{ title: "Driver Found" }} />
       <Stack.Screen
-        name="looking-for-driver"
+        name="immediate-ride/driver-found"
+        options={{ title: "Driver Found" }}
+      />
+      <Stack.Screen
+        name="immediate-ride/looking-for-driver"
         options={{
           title: "Finding Driver",
-          headerShown: false, // Hide header for this screen
+          headerShown: false,
         }}
+      />
+      <Stack.Screen
+        name="planned-routes/search"
+        options={{ title: "Search Planned Routes" }}
+      />
+      <Stack.Screen
+        name="planned-routes/results"
+        options={{ title: "Available Routes" }}
+      />
+      <Stack.Screen
+        name="planned-routes/book"
+        options={{ title: "Book Planned Route" }}
       />
       <Stack.Screen
         name="fare-info"

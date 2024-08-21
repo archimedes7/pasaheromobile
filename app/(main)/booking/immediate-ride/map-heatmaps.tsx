@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  useRef,
+} from "react";
 import {
   View,
   Text,
@@ -27,7 +33,9 @@ import { CarOption } from "@/components/CarOption";
 import { HeatmapView } from "@/components/HeatmapView";
 import { CarType, LocationData } from "@/types";
 import axios from "axios";
-
+import Receipt from "@/components/Receipts";
+import { debounce } from "lodash";
+// Adjust the import path as necessary
 const regions: Record<string, Region> = {
   "Metro Manila": {
     latitude: 14.5995,
@@ -143,6 +151,10 @@ const MapScreenHeatmaps: React.FC = () => {
   const [dropoffSuggestions, setDropoffSuggestions] = useState<any[]>([]);
   const [isSettingPickupPin, setIsSettingPickupPin] = useState(false);
   const [isSettingDropoffPin, setIsSettingDropoffPin] = useState(false);
+  const [isRideComplete, setIsRideComplete] = useState(false);
+  const [rideStatus, setRideStatus] = useState<
+    "idle" | "searching" | "ongoing" | "completed"
+  >("idle");
 
   const [savedPlaces, setSavedPlaces] = useState<SavedPlace[]>([
     {
@@ -374,9 +386,12 @@ const MapScreenHeatmaps: React.FC = () => {
         selectedCarType.name,
         finalPrice
       );
+      setRideStatus("searching");
       setIsLookingForDriver(true);
       setTimeout(() => {
         setIsLookingForDriver(false);
+        setRideStatus("ongoing");
+        console.log("Ride started");
         console.log("Navigating to driver-found screen");
         router.push({
           pathname: "booking/driver-found",
@@ -389,6 +404,11 @@ const MapScreenHeatmaps: React.FC = () => {
             estimatedPrice: finalPrice,
           },
         });
+        setTimeout(() => {
+          console.log("Ride completed, showing receipt");
+          setRideStatus("completed");
+          setIsRideComplete(true);
+        }, 10000);
       }, 5000);
     } else {
       console.log("Incomplete booking information");
@@ -404,6 +424,7 @@ const MapScreenHeatmaps: React.FC = () => {
     fromAddress,
     toAddress,
     router,
+    setIsRideComplete,
   ]);
 
   console.log("Current state:", {
@@ -421,6 +442,10 @@ const MapScreenHeatmaps: React.FC = () => {
     trafficData,
   });
 
+  const deg2rad = (deg: number) => {
+    return deg * (Math.PI / 180);
+  };
+
   return (
     <ScrollView
       style={[styles.scrollView, { backgroundColor: colors.primaryBackground }]}
@@ -437,6 +462,9 @@ const MapScreenHeatmaps: React.FC = () => {
             <TouchableOpacity onPress={handleGetCurrentLocation}>
               <Ionicons name="map-outline" size={24} color={colors.primary} />
             </TouchableOpacity>
+          </View>
+          <View style={styles.rideStatusContainer}>
+            <Text style={styles.rideStatusText}>Ride Status: {rideStatus}</Text>
           </View>
         </View>
       </View>
@@ -600,6 +628,22 @@ const MapScreenHeatmaps: React.FC = () => {
             </TouchableOpacity>
           )}
 
+          {rideStatus === "ongoing" && (
+            <TouchableOpacity
+              style={[styles.button, { backgroundColor: colors.primary }]}
+              onPress={() => {
+                setRideStatus("completed");
+                setIsRideComplete(true);
+              }}
+            >
+              <Text
+                style={[styles.buttonText, { color: colors.primaryBtnText }]}
+              >
+                Complete Ride (Test)
+              </Text>
+            </TouchableOpacity>
+          )}
+
           <View style={styles.savedPlacesContainer}>
             <Text style={styles.sectionTitle}>Saved Places</Text>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
@@ -669,6 +713,62 @@ const MapScreenHeatmaps: React.FC = () => {
             color={(opacity = 1) => `rgba(0, 255, 0, ${opacity})`}
             colors={colors}
           />
+        </View>
+      </Modal>
+      <Modal isVisible={isRideComplete}>
+        <View
+          style={[
+            styles.modalContent,
+            { backgroundColor: colors.primaryBackground },
+          ]}
+        >
+          <Receipt
+            tripDetails={{
+              startLocation: fromAddress,
+              endLocation: toAddress,
+              startTime: new Date().toLocaleTimeString(),
+              endTime: new Date().toLocaleTimeString(),
+              distance:
+                fromLocation && toLocation
+                  ? getDistance(fromLocation, toLocation)
+                  : 0,
+            }}
+            fareBreakdown={{
+              baseFare: 12,
+              distanceCharge: estimatedPrice ? estimatedPrice * 0.7 : 0,
+              timeCharge: estimatedPrice ? estimatedPrice * 0.3 : 0,
+              surgePricing: 0,
+            }}
+            driver={{
+              name: "John Doe",
+              vehicleMake: "Toyota",
+              vehicleModel: "Vios",
+              plateNumber: "ABC 123",
+            }}
+            totalFare={estimatedPrice || 0}
+            taxAmount={(estimatedPrice || 0) * 0.12}
+          />
+          <TouchableOpacity
+            style={[
+              styles.button,
+              { backgroundColor: colors.primary, marginTop: 20 },
+            ]}
+            onPress={() => {
+              setIsRideComplete(false);
+              setRideStatus("idle");
+              // Reset other ride state here
+              setFromLocation(null);
+              setToLocation(null);
+              setFromAddress("");
+              setToAddress("");
+              setSelectedCarType(null);
+              setEstimatedPrice(null);
+            }}
+          >
+            <Text style={[styles.buttonText, { color: colors.primaryBtnText }]}>
+              Close Receipt
+            </Text>
+          </TouchableOpacity>
         </View>
       </Modal>
     </ScrollView>
@@ -819,6 +919,16 @@ const styles = StyleSheet.create({
   recentTripName: {
     fontSize: 12,
     color: "#666",
+  },
+  rideStatusContainer: {
+    padding: 10,
+    backgroundColor: "#f0f0f0",
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  rideStatusText: {
+    fontSize: 16,
+    fontWeight: "bold",
   },
 });
 

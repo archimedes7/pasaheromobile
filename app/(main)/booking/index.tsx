@@ -106,35 +106,35 @@ export default function BookingIndex() {
         onPress={handleStartBooking}
       >
         <Text style={[styles.buttonText, { color: colors.primaryBtnText }]}>
-          Find a Ride
+          Find a Immediate Ride
         </Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={styles.mapButton}
-        onPress={() => router.push("/booking/map")}
+        style={[styles.button, { backgroundColor: colors.primary }]}
+        onPress={() => router.push("/booking/planned-routes/search")}
       >
-        <Ionicons name="map-outline" size={24} color={colors.primary} />
-        <Text style={[styles.mapButtonText, { color: colors.primary }]}>
-          Open Map View
+        <Text style={[styles.buttonText, { color: colors.primaryBtnText }]}>
+          Try Search Planned Routes
         </Text>
       </TouchableOpacity>
 
       <TouchableOpacity
-        style={styles.mapButton}
+        style={[styles.button, { backgroundColor: colors.primary }]}
         onPress={() => router.push("/booking/map-heatmaps")}
       >
-        <Ionicons name="flask-outline" size={24} color={colors.primary} />
-        <Text style={[styles.mapButtonText, { color: colors.primary }]}>
-          Try Demo Booking
+        <Text style={[styles.buttonText, { color: colors.primaryBtnText }]}>
+          <Ionicons name="flask-outline" size={24} color={colors.secondary} />
+          Try Demo booking
         </Text>
       </TouchableOpacity>
+
       <TouchableOpacity
-        style={styles.mapButton}
+        style={[styles.button, { backgroundColor: colors.primary }]}
         onPress={() => router.push("/booking/map-heatmaps-osm")}
       >
-        <Ionicons name="flask-outline" size={24} color={colors.primary} />
-        <Text style={[styles.mapButtonText, { color: colors.primary }]}>
+        <Text style={[styles.buttonText, { color: colors.primaryBtnText }]}>
+          <Ionicons name="flask-outline" size={24} color={colors.secondary} />
           Try Demo Booking "(IOS/ANDROID)"
         </Text>
       </TouchableOpacity>

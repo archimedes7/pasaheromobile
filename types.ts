@@ -5,9 +5,7 @@ export interface CarType {
   // ... (keep existing CarType interface)
 }
 
-export interface LocationData {
-  // ... (keep existing LocationData interface)
-}
+export interface LocationData {}
 
 export type RootStackParamList = {
   // ... (keep existing RootStackParamList type)

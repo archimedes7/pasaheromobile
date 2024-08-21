@@ -19,7 +19,7 @@ export default function MoreScreen() {
     {
       title: "Driver Support",
       icon: "locate",
-      route: "/driver-application/driver-training",
+      route: "/driver/application/driver-training",
     },
     // Add more menu items as needed
   ];

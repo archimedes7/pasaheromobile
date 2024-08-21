@@ -83,20 +83,16 @@ export default function MainLayout() {
           ),
         }}
       />
-      {userType === "Driver" && (
-        <>
-          <Tabs.Screen
-            name="driver-application/index"
-            options={{
-              href: null,
-              title: "Apply",
-              tabBarIcon: ({ color, size }) => (
-                <Ionicons name="document-text" size={size} color={color} />
-              ),
-            }}
-          />
-        </>
-      )}
+      <Tabs.Screen
+        name="driver"
+        options={{
+          title: "Driver",
+          tabBarIcon: ({ color, size }) => (
+            <Ionicons name="glasses" size={size} color={color} />
+          ),
+          href: userType === "Driver" ? "/driver/index" : null,
+        }}
+      />
     </Tabs>
   );
 }
